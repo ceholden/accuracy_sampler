@@ -1,0 +1,13 @@
+# QGIS Generated Color Map Export File
+INTERPOLATION:EXACT
+1,0,91,234,255,Water
+2,254,0,0,255,Developed/Urban
+3,255,1,196,255,Mech. Disturbed
+4,204,204,204,255,Barren
+5,0,0,0,255,Mining
+6,39,115,6,255,Forest
+7,255,255,0,255,Grass/Shrub
+8,255,170,1,255,Agriculture
+9,0,254,197,255,Wetland
+10,195,0,252,255,Nonmech. Disturbed
+11,255,255,255,255,Ice/Snow
