@@ -49,3 +49,10 @@ class SamplerDialog(QtGui.QDialog, Ui_Dialog):
     def unload(self):
         """ Disconnect signals and delete resources """
         pass
+
+if __name__ == '__main__':
+    import sys
+    app = QtGui.QApplication(sys.argv)
+    window = SamplerDialog(app)
+    window.show()
+    sys.exit(app.exec_())
