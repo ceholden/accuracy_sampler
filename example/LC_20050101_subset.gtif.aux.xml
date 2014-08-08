@@ -1,28 +1,20 @@
 <PAMDataset>
   <PAMRasterBand band="1">
-    <CategoryNames>
-      <Category>Masked</Category>
-      <Category>Water</Category>
-      <Category>Developed/Urban</Category>
-      <Category>Mech. Disturbed</Category>
-      <Category>Barren</Category>
-      <Category>Mining</Category>
-      <Category>Forest</Category>
-      <Category>Grass/Shrub</Category>
-      <Category>Agriculture</Category>
-      <Category>Wetland</Category>
-      <Category>Nonmech. Disturbed</Category>
-      <Category>Ice/Snow</Category>
-    </CategoryNames>
     <Histograms>
       <HistItem>
-        <HistMin>-0.5</HistMin>
-        <HistMax>255.5</HistMax>
+        <HistMin>-0.498046875</HistMin>
+        <HistMax>255.498046875</HistMax>
         <BucketCount>256</BucketCount>
-        <IncludeOutOfRange>1</IncludeOutOfRange>
-        <Approximate>0</Approximate>
-        <HistCounts>317|14669|31179|0|50448|0|126187|438552|165346|173302|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0</HistCounts>
+        <IncludeOutOfRange>0</IncludeOutOfRange>
+        <Approximate>1</Approximate>
+        <HistCounts>8|1279|2994|0|5109|0|10838|41520|18033|16219|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0</HistCounts>
       </HistItem>
     </Histograms>
+    <Metadata>
+      <MDI key="STATISTICS_MAXIMUM">9</MDI>
+      <MDI key="STATISTICS_MEAN">6.988291</MDI>
+      <MDI key="STATISTICS_MINIMUM">0</MDI>
+      <MDI key="STATISTICS_STDDEV">1.6618447278007</MDI>
+    </Metadata>
   </PAMRasterBand>
 </PAMDataset>

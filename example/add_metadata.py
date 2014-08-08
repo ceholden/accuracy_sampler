@@ -25,7 +25,11 @@ out_class = ['Masked',
              'Ice/Snow']
 
 ds = gdal.Open('LC_20050101_subset.gtif', gdal.GA_Update)
-b = ds.GetRasterBand(1)
+
+driver = gdal.GetDriverByName('ENVI')
+out_ds = driver.CreateCopy('LC_20050101_coded', ds)
+
+b = out_ds.GetRasterBand(1)
 
 ct = gdal.ColorTable()
 for i, _ct in enumerate(out_ct):
@@ -34,3 +38,4 @@ b.SetColorTable(ct)
 b.SetCategoryNames(out_class)
 
 ds = None
+out_ds = None
