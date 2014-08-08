@@ -72,9 +72,16 @@ class SamplerDialog(QtGui.QDialog, Ui_Dialog):
     # Initialize sample variables
     total_sample_size = 0
 
-    design = 0
-    _sample_designs = ['simple_random', 'stratified_random']
-    _sample_designs_has_allocation = [False, True]
+    _alloc_strat = 0
+    _alloc_strat_buttons = ['rbut_alloc_prop',
+                            'rbut_alloc_spec',
+                            'rbut_alloc_equal']
+
+    design = 1
+    _sample_designs_buttons = ['rbut_type_simple', 'rbut_type_strat']
+    _sample_designs_allocation = [None,
+                                  ('_alloc_strat', '_alloc_strat_buttons')]
+    _sample_designs_pages = ['page_simple', 'page_stratified']
 
     # Initialize map dataset variables
     _map_ds = None
@@ -103,6 +110,22 @@ class SamplerDialog(QtGui.QDialog, Ui_Dialog):
 
         self.but_browse.clicked.connect(self.find_map)
         self.but_loadmap.clicked.connect(self.load_map)
+
+        ### Allocation
+        # Check default design and change page
+        rbutton = getattr(self, self._sample_designs_buttons[self.design])
+        rbutton.setChecked(True)
+
+        page = getattr(self, self._sample_designs_pages[self.design])
+        self.stack_design.setCurrentWidget(page)
+
+        allocation = self._sample_designs_allocation[self.design]
+        if allocation:
+            allocation_type = getattr(self, allocation[0])
+            rbutton = getattr(self, allocation[1])
+            rbutton = getattr(self, rbutton[allocation_type])
+
+        rbutton.setChecked(True)
 
     @QtCore.pyqtSlot()
     def find_map(self):

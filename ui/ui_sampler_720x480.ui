@@ -284,7 +284,7 @@
           <item row="3" column="0">
            <widget class="QStackedWidget" name="stack_design">
             <property name="currentIndex">
-             <number>0</number>
+             <number>1</number>
             </property>
             <widget class="QWidget" name="page_simple">
              <layout class="QGridLayout" name="gridLayout_7"/>
@@ -304,21 +304,21 @@
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_2">
                  <item>
-                  <widget class="QRadioButton" name="radioButton">
+                  <widget class="QRadioButton" name="rbut_alloc_prop">
                    <property name="text">
                     <string>Proportional</string>
                    </property>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QRadioButton" name="radioButton_3">
+                  <widget class="QRadioButton" name="rbut_alloc_spec">
                    <property name="text">
                     <string>Specified</string>
                    </property>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QRadioButton" name="radioButton_2">
+                  <widget class="QRadioButton" name="rbut_alloc_equal">
                    <property name="text">
                     <string>Equal</string>
                    </property>
