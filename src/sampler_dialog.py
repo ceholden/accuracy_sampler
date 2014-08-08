@@ -29,7 +29,7 @@ from PyQt4 import QtGui
 
 import qgis.core
 
-from ui_sampler import Ui_AccuracySampler as Ui_Dialog
+from ui_sampler import Ui_AccuracyAssessSampler as Ui_Dialog
 
 logging.basicConfig(format='%(asctime)s %(levelname)s: %(message)s',
                     level=logging.DEBUG,
