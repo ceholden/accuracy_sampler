@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>720</width>
-    <height>517</height>
+    <height>535</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -49,7 +49,7 @@
          </property>
          <layout class="QGridLayout" name="gridLayout_2">
           <item row="1" column="2">
-           <widget class="QPushButton" name="cbox_browse">
+           <widget class="QPushButton" name="but_browse">
             <property name="minimumSize">
              <size>
               <width>50</width>
@@ -110,16 +110,6 @@
             </property>
            </widget>
           </item>
-          <item row="2" column="1" colspan="2">
-           <widget class="QSpinBox" name="spin_band">
-            <property name="alignment">
-             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-            </property>
-            <property name="value">
-             <number>1</number>
-            </property>
-           </widget>
-          </item>
           <item row="3" column="0">
            <widget class="QLabel" name="label_4">
             <property name="minimumSize">
@@ -143,6 +133,16 @@
             </property>
            </widget>
           </item>
+          <item row="2" column="1" colspan="2">
+           <widget class="QSpinBox" name="spin_band">
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+            <property name="value">
+             <number>1</number>
+            </property>
+           </widget>
+          </item>
          </layout>
         </widget>
        </item>
@@ -153,16 +153,6 @@
            <widget class="QLabel" name="label_6">
             <property name="text">
              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Total sample size:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QSpinBox" name="sbox_nsample">
-            <property name="alignment">
-             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-            </property>
-            <property name="maximum">
-             <number>16777215</number>
             </property>
            </widget>
           </item>
@@ -193,10 +183,20 @@
             </column>
            </widget>
           </item>
+          <item row="0" column="1">
+           <widget class="QSpinBox" name="spin_nsample">
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+            <property name="maximum">
+             <number>16777215</number>
+            </property>
+           </widget>
+          </item>
          </layout>
          <zorder>table_allocation</zorder>
          <zorder>label_6</zorder>
-         <zorder>sbox_nsample</zorder>
+         <zorder>spin_nsample</zorder>
         </widget>
        </item>
       </layout>
@@ -230,7 +230,7 @@
           </size>
          </property>
          <layout class="QGridLayout" name="gridLayout_4">
-          <item row="1" column="0" colspan="2">
+          <item row="2" column="0" colspan="2">
            <widget class="QGroupBox" name="group_type">
             <property name="minimumSize">
              <size>
@@ -265,42 +265,6 @@
             </layout>
            </widget>
           </item>
-          <item row="2" column="0" colspan="2">
-           <widget class="QGroupBox" name="groupBox">
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>100</height>
-             </size>
-            </property>
-            <property name="title">
-             <string>Allocation:</string>
-            </property>
-            <layout class="QVBoxLayout" name="verticalLayout_2">
-             <item>
-              <widget class="QRadioButton" name="radioButton">
-               <property name="text">
-                <string>Proportional</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QRadioButton" name="radioButton_3">
-               <property name="text">
-                <string>Specified</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QRadioButton" name="radioButton_2">
-               <property name="text">
-                <string>Equal</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </item>
           <item row="0" column="0" colspan="2">
            <widget class="QLabel" name="label_5">
             <property name="maximumSize">
@@ -314,43 +278,110 @@
             </property>
            </widget>
           </item>
+          <item row="3" column="0">
+           <widget class="QStackedWidget" name="stack_design">
+            <property name="currentIndex">
+             <number>0</number>
+            </property>
+            <widget class="QWidget" name="page_simple">
+             <layout class="QGridLayout" name="gridLayout_7"/>
+            </widget>
+            <widget class="QWidget" name="page_stratified">
+             <layout class="QGridLayout" name="gridLayout_8">
+              <item row="0" column="0">
+               <widget class="QGroupBox" name="groupBox">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>100</height>
+                 </size>
+                </property>
+                <property name="title">
+                 <string>Allocation:</string>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_2">
+                 <item>
+                  <widget class="QRadioButton" name="radioButton">
+                   <property name="text">
+                    <string>Proportional</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QRadioButton" name="radioButton_3">
+                   <property name="text">
+                    <string>Specified</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QRadioButton" name="radioButton_2">
+                   <property name="text">
+                    <string>Equal</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </widget>
+          </item>
          </layout>
         </widget>
        </item>
        <item row="1" column="0">
         <widget class="QWidget" name="widget_6" native="true">
          <layout class="QGridLayout" name="gridLayout_6">
-          <item row="2" column="0">
+          <item row="3" column="0">
            <widget class="QLineEdit" name="edit_raster_fname"/>
           </item>
-          <item row="4" column="0" colspan="2">
+          <item row="5" column="0" colspan="2">
            <widget class="QCheckBox" name="cbox_save_vector">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="text">
              <string>Vector layer</string>
             </property>
            </widget>
           </item>
-          <item row="5" column="0">
-           <widget class="QLineEdit" name="edit_vector_fname"/>
+          <item row="6" column="0">
+           <widget class="QLineEdit" name="edit_vector_fname">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+           </widget>
           </item>
-          <item row="2" column="1">
+          <item row="3" column="1">
            <widget class="QPushButton" name="but_raster_browse">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="text">
              <string>Browse</string>
             </property>
            </widget>
           </item>
-          <item row="3" column="0" colspan="2">
-           <widget class="QComboBox" name="combo_raster_format"/>
+          <item row="4" column="0" colspan="2">
+           <widget class="QComboBox" name="combo_raster_format">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+           </widget>
           </item>
-          <item row="1" column="0" colspan="2">
+          <item row="2" column="0" colspan="2">
            <widget class="QCheckBox" name="cbox_save_raster">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="text">
              <string>Raster image</string>
             </property>
            </widget>
           </item>
-          <item row="0" column="0" colspan="2">
+          <item row="1" column="0" colspan="2">
            <widget class="QLabel" name="label_7">
             <property name="maximumSize">
              <size>
@@ -363,21 +394,31 @@
             </property>
            </widget>
           </item>
-          <item row="5" column="1">
-           <widget class="QPushButton" name="but_raster_browse_2">
+          <item row="6" column="1">
+           <widget class="QPushButton" name="but_vector_browse">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="text">
              <string>Browse</string>
             </property>
            </widget>
           </item>
-          <item row="6" column="0" colspan="2">
-           <widget class="QComboBox" name="combo_vector_format"/>
+          <item row="7" column="0" colspan="2">
+           <widget class="QComboBox" name="combo_vector_format">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>
        </item>
        <item row="2" column="0">
         <widget class="QCheckBox" name="cbox_random_order">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="text">
           <string>Randomize sample order</string>
          </property>
