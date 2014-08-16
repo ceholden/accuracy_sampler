@@ -33,6 +33,13 @@ class SampleDesign(object):
 
     __metaclass__ = abc.ABCMeta
 
+    # Information about class_map
+    class_map = None
+    classes = None
+    class_count = None
+    class_freq = None
+    class_proportion = None
+
     # Samples from probability sample
     n_samples = None
     samples = None
@@ -49,28 +56,60 @@ class SampleDesign(object):
     def __repr__(self):
         return "A probability sample"
 
-    def __init__(self, classmap, nodata=None):
+    def __init__(self, class_map, n_samples, nodata=None):
         """ Initializse with some number of samples in the design
 
         Args:
           class_map (ndarray):      a NumPy 2D array of the classification map
+          n_samples (int):          number of samples
           nodata (int, optional):   NoData value for the map
         """
-        self.classmap = classmap
+        self.class_map = class_map
+        self.n_samples = n_samples
         self.nodata = nodata
 
-        # Extra properties from classmap
-        self.process_classmap()
+        # Extra properties from class_map
+        self.process_class_map()
 
-    def process_classmap(self):
-        """ Extra properties from classmap
+    def process_class_map(self):
+        """ Extra properties from class_map
 
         Extracts the:
+            - classes
             - number of classes
             - class frequency
             - class proportion of total map
 
         """
+        # Get classes and total number of valid pixels
+        if isinstance(self.nodata, (list, np.ndarray)):
+            # Get values not matching anything in self.nodata
+            unmasked = self.class_map != self.nodata[0]
+            for nodata in self.nodata[1:]:
+                unmasked = np.logical_and(unmasked,
+                                          self.class_map != nodata)
+
+            self.classes = self.class_map[unmasked]
+            n_valid_pixels = unmasked.sum()
+        elif isinstance(self.nodata, int):
+            self.classes = np.unique(
+                self.class_map[self.class_map != self.nodata])
+            n_valid_pixels = (self.class_map != self.nodata).sum()
+        else:
+            self.classes = np.unique(self.class_map)
+            n_valid_pixels = self.class_map.size
+
+        # Number of classes
+        self.class_count = self.classes.size
+
+        # Get class frequency
+        self.class_freq = np.zeros(self.classes.size)
+        for i, c in enumerate(self.classes):
+            self.class_freq[i] = (self.class_map == c).sum()
+
+        # Get class proportion
+        self.class_proportion = (self.class_freq.astype(np.float32) /
+                                 n_valid_pixels)
 
     @abc.abstractmethod
     def sample_map(self, seed=None):
@@ -84,7 +123,7 @@ class SampleDesign(object):
         """
         pass
 
-    def allocate(self, n_samples, allocation):
+    def allocate(self, n_samples, allocation=None):
         """ Allocate samples according to some strategy
 
         Args:
@@ -134,28 +173,30 @@ class StratifiedRandomSample(SampleDesign):
     def __repr__(self):
         return "A stratified random probability sample"
 
-    def __init__(self, classmap, nodata=None):
+    def __init__(self, class_map, n_samples, nodata=None):
         """ Initializse with some number of samples in the design
 
         Args:
           class_map (ndarray):      a NumPy 2D array of the classification map
+          n_samples (int):          number of samples
           nodata (int, optional):   NoData value for the map
         """
-        super(SampleDesign, self).__init__()
+        super(StratifiedRandomSample, self).__init__(
+            class_map, n_samples, nodata)
 
         # Allocate our samples initially
-        self.allocate(self.allocation)
+        self.allocate(self._allocation_prop)
 
-    def allocate(self, n_samples, allocation):
+    def allocate(self, allocation):
         """ Allocate number of samples to map categories based on type
 
         Args:
-            n_samples (int):        number of samples
             allocation_type (int):  code corresponding to allocation_str
 
         """
-        if n_samples < 1:
-            raise ValueError('Number of samples cannot be less than 1')
+        if self.n_samples < self.class_count:
+            raise ValueError('Number of samples cannot be less than number'
+                             ' of classes')
 
         if allocation == self._allocation_prop:
             logger.info('Allocating samples proportional to area')
@@ -167,7 +208,12 @@ class StratifiedRandomSample(SampleDesign):
             logger.warning('No allocation method user specified allocation')
 
     def _allocate_prop(self):
-        """ Al
+        """ Allocation samples proportional to area """
+        pass
+
+    def _allocate_equal(self):
+        """ Allocate samples equally across all strata """
+        pass
 
     def sample_map(self, n_samples, seed=None):
         """ Perform a stratified random sample on the map
