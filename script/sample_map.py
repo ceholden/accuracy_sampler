@@ -14,7 +14,7 @@ Options:
     --rformat <format>          Raster file format [default: GTiff]
     --vector <filename>         Vector filename [default: sample.shp]
     --vformat <format>          Vector file format [default: ESRI Shapefile]
-    --seed <seed_value>         Initial RNG seed value [default: None]
+    --seed_val <seed_value>     Initial RNG seed value [default: None]
     -v --verbose                Show verbose debugging messages
     -h --help                   Show help
 
@@ -435,7 +435,7 @@ def main():
     ogr_driver = None
 
     # Seed value
-    seed = args['--seed']
+    seed = args['--seed_val']
     if seed.lower() == 'none':
         seed = None
     else:
@@ -445,6 +445,7 @@ def main():
             logger.error("Seed value must be an integer")
             sys.exit(1)
         np.random.seed(seed)
+        logger.debug('Setting NumPy seed to {s}'.format(s=seed))
 
     ### Finally do some real work
     # Read in image
