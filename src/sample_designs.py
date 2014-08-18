@@ -89,7 +89,7 @@ class SampleDesign(object):
                 unmasked = np.logical_and(unmasked,
                                           self.class_map != nodata)
 
-            self.classes = self.class_map[unmasked]
+            self.classes = np.unique(self.class_map[unmasked])
             n_valid_pixels = unmasked.sum()
         elif isinstance(self.nodata, int):
             self.classes = np.unique(
@@ -140,7 +140,7 @@ class SimpleRandomDesign(SampleDesign):
 
     def __init__(self, n_samples):
         """ Initialize a simple random with some number of samples """
-        super(SampleDesign, self).__init__()
+        super(self.__class__, self).__init__()
 
         raise NotImplementedError
 
@@ -171,7 +171,10 @@ class StratifiedRandomSample(SampleDesign):
     _allocation_user = 2
 
     def __repr__(self):
-        return "A stratified random probability sample"
+        s = "A stratified random probability sample of {n} samples for " \
+            "{c} classes".format(n=self.n_samples,
+                                 c=self.class_count)
+        return s
 
     def __init__(self, class_map, n_samples, nodata=None):
         """ Initializse with some number of samples in the design
@@ -181,7 +184,7 @@ class StratifiedRandomSample(SampleDesign):
           n_samples (int):          number of samples
           nodata (int, optional):   NoData value for the map
         """
-        super(StratifiedRandomSample, self).__init__(
+        super(self.__class__, self).__init__(
             class_map, n_samples, nodata)
 
         # Allocate our samples initially
