@@ -33,7 +33,7 @@ Example:
     Output stratified random sample using specified allocation to a shapefile
         and raster image in a randomized order and a specified seed value.
 
-    sample_map.py -v --size 500 --allocation "50 50 50 100" --ndv 255 --mask 0
+    sample_map.py -v --size 200 --allocation "50 50 50 100" --ndv 255 --mask 0
         --raster output.gtif --vector samples.shp --seed 10000
         stratified input_map.gtif
 
