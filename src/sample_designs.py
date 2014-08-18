@@ -211,12 +211,51 @@ class StratifiedRandomSample(SampleDesign):
             logger.warning('No allocation method user specified allocation')
 
     def _allocate_prop(self):
-        """ Allocation samples proportional to area """
-        pass
+        """ Allocation samples proportional to area
+
+        Number of samples allocated will be rounded up or down, with any
+        remainder allocated to last class.
+
+        """
+        self.samples = np.zeros(self.class_count, dtype=np.uint32)
+
+        # Keep counter to make sure we have samples left to allocate
+        remaining = self.n_samples
+
+        for i, prop in enumerate(self.class_proportion):
+            n = round(self.n_samples * prop)
+
+            if n > remaining:
+                n = remaining
+
+            remaining -= n
+
+            self.samples[i] = n
+
+        assert self.samples.sum() == self.n_samples, \
+            "Error in proportional allocation"
 
     def _allocate_equal(self):
-        """ Allocate samples equally across all strata """
-        pass
+        """ Allocate samples equally across all strata
+
+        If number of samples is not evenly divisible by the number of classes,
+        then extra samples are allocated to the first classes.
+
+        """
+        # How many samples per class?
+        n_per = int(self.n_samples / self.class_count)
+
+        # Allocate base amount
+        self.samples = np.ones(self.class_count, dtype=np.uint32) * n_per
+
+        # Allocate extra
+        remaining = self.n_samples % self.class_count
+        if remaining != 0:
+            for i in range(remaining):
+                self.samples[i] += 1
+
+        assert self.samples.sum() == self.n_samples, \
+            "Error in equal allocation"
 
     def sample_map(self, n_samples, seed=None):
         """ Perform a stratified random sample on the map
