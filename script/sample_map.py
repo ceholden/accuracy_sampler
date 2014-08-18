@@ -360,7 +360,7 @@ def main():
 
     # Parse mask values
     mask = args['--mask']
-    if mask == 'None':
+    if mask.lower() == 'none':
         mask = None
         logger.debug('Not using a mask value')
     else:
@@ -389,11 +389,11 @@ def main():
 
     # Output filenames - None if 'None'
     output_raster = args['--raster']
-    if output_raster == 'None':
+    if output_raster.lower() == 'none':
         output_raster = None
 
     output_vector = args['--vector']
-    if output_vector == 'None':
+    if output_vector.lower() == 'none':
         output_vector = None
 
     # Output drivers
@@ -436,7 +436,7 @@ def main():
 
     # Seed value
     seed = args['--seed']
-    if seed == 'None':
+    if seed.lower() == 'none':
         seed = None
     else:
         try:
