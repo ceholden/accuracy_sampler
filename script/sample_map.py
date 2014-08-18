@@ -462,8 +462,7 @@ def main():
                                 size=size,
                                 allocation=allocation,
                                 mask=mask,
-                                order=order,
-                                seed=seed)
+                                order=order)
     logger.debug('Finished collecting samples')
 
     image = None
