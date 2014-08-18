@@ -54,6 +54,8 @@ except:
     import ogr
     import osr
 
+__version__ = '0.1.0'
+
 _allocation_methods = ['proportional', 'equal', 'good_practices']
 
 VERBOSE = False
@@ -480,7 +482,7 @@ def main():
     logger.debug('Sampling complete')
 
 if __name__ == '__main__':
-    args = docopt(__doc__)
+    args = docopt(__doc__, version=__version__)
 
     if args['--verbose']:
         VERBOSE = True
