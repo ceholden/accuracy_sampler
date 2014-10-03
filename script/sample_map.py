@@ -130,10 +130,48 @@ def random_stratified(image, classes, counts):
     return (strata, cols, rows)
 
 
-def random_simple(image, classes, counts):
-    """ """
-    raise NotImplementedError(
-        "Sorry - haven't added Simple Random sampling")
+def random_simple(image, classes, count):
+    """
+    Return pixel strata, row, column from within image from a simple random
+    sample of classes specified. The strata returned will be all equal to 1
+    because there are no strata in a non-stratified design.
+
+    Args:
+        image (ndarray)         input map image
+        classes (ndarray)       map image classes to be sampled
+        counts (ndarray)        map image class sample counts
+
+    Return:
+        (strata, col, row)      tuple of ndarrays
+    """
+    # Check
+    if isinstance(count, np.ndarray):
+        if count.ndim > 1 or count[0].ndim > 1:
+            logger.error('Allocation for simple random sample must be one \
+                number')
+            logger.error('Allocation was:')
+            logger.error(count)
+            sys.exit(1)
+        else:
+            count = count[0]
+
+    logger.debug('Performing sampling')
+
+    # Find all pixels in `image` in `classes` and store locations
+    rows, cols = np.where(np.in1d(image, classes).reshape(image.shape))
+
+    if count > cols.size:
+        logger.error('Sample size greater than population of all classes \
+            included')
+        logger.error('Sample count: {n}'.format(n=count))
+        logger.error('Population size: {n}'.format(n=cols.size))
+        sys.exit(1)
+
+    # Sample some of these locations
+    sample = np.random.choice(cols.size, count, replace=False)
+    logger.debug('    collected samples')
+
+    return (np.ones(count), cols[sample], rows[sample])
 
 
 def random_systematic(image, classes, counts):
