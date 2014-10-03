@@ -1,0 +1,24 @@
+ENVI
+description = {
+LC_20050101_coded}
+samples = 1000
+lines   = 1000
+bands   = 1
+header offset = 0
+file type = ENVI Classification
+data type = 1
+interleave = bsq
+byte order = 0
+classes = 12
+class lookup = {
+0, 0, 0, 0, 91, 234, 254, 0, 0, 255, 1, 196, 204, 204, 204, 
+0, 0, 0, 39, 115, 6, 255, 255, 0, 255, 170, 1, 0, 254, 197, 
+195, 0, 252, 255, 255, 255}
+class names = {
+Masked, Water, Developed/Urban, Mech. Disturbed, Barren,
+ Mining, Forest, Grass/Shrub, Agriculture, Wetland,
+ Nonmech. Disturbed, Ice/Snow}
+map info = {UTM, 1, 1, 394185, 3061215, 30, 30, 17, North,WGS-84}
+coordinate system string = {PROJCS["WGS_1984_UTM_Zone_17N",GEOGCS["GCS_WGS_1984",DATUM["D_WGS_1984",SPHEROID["WGS_1984",6378137,298.257223563]],PRIMEM["Greenwich",0],UNIT["Degree",0.017453292519943295]],PROJECTION["Transverse_Mercator"],PARAMETER["latitude_of_origin",0],PARAMETER["central_meridian",-81],PARAMETER["scale_factor",0.9996],PARAMETER["false_easting",500000],PARAMETER["false_northing",0],UNIT["Meter",1]]}
+band names = {
+Band 1}
