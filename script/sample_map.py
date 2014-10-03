@@ -2,10 +2,10 @@
 """ Generate random sample of a map
 
 Usage:
-    sample_map.py [options] (random | stratified | systematic) <map>
+    sample_map.py [options] (simple | stratified | systematic) <map>
 
 Options:
-    --allocation <allocation>   Sample allocation [default: proportional]
+    --allocation <allocation>   Sample allocation
     --size <n>                  Sample size for allocation [default: 500]
     --mask <values>             Values to be excluded from sample [default: 0]
     --order                     Order or sort output samples by strata
@@ -33,9 +33,10 @@ Example:
     Output stratified random sample using specified allocation to a shapefile
         and raster image in a randomized order and a specified seed value.
 
-    sample_map.py -v --size 200 --allocation "50 50 50 100" --ndv 255 --mask 0
-        --raster output.gtif --vector samples.shp --seed 10000
-        stratified input_map.gtif
+    > sample_map.py -v --size 200 --allocation "50 25 25 100"
+    ... --mask 0 --ndv 255
+    ... --raster output.gtif --vector samples.shp --seed 10000
+    ... stratified input_map.gtif
 
 """
 from __future__ import print_function, division
@@ -147,14 +148,18 @@ def sample(image, method,
     """
     Make sampling decisions and perform sampling
 
-    image -> np.ndarray of the image
-    method -> sampling method
-    size -> total sample size
-    allocation -> str, or list/np.ndarray with sample counts
-    mask -> list or np.ndarray of masked values
-    order -> boolean, do we order the output by strata?
+    Args:
+      image (np.ndarray): 1 dimensional array of the image
+      method (str): Sampling method
+      size (int, optional): Total sample size
+      allocation (str, or list/np.ndarray): Allocation strategy specified as a
+        string, or user specified allocation as list or np.ndarray
+      mask (list or np.ndarray, optional): Values to exclude from `image`
+      order (bool, optional): Order the output by strata, or not
 
-    :returns: (strata, col, rows)
+    Returns:
+        output (tuple): strata, row numbers, and column numbers
+
     """
     # Find map classes within image
     classes = np.sort(np.unique(image))
@@ -171,8 +176,10 @@ def sample(image, method,
                 pix=px,
                 pct=np.round(float(px) / image.size * 100.0, decimals=2)))
 
-    # Determine allocation based on input
-    if isinstance(allocation, str):
+    # Determine class counts from allocation type and total sample size
+    if allocation is None:
+        counts = size
+    elif isinstance(allocation, str):
         # If allocationd determined by method, we must specify a size
         if not isinstance(size, int):
             raise TypeError('Must specify sample size if allocation to '
@@ -317,8 +324,11 @@ def main():
     logger.debug('Using map image {f}'.format(f=image_fn))
 
     # Sampling method
-    if args['random']:
+    if args['simple']:
         method = 'random'
+        if args['--allocation'] is not None:
+            logger.error('A simple random sample cannot have an allocation')
+            sys.exit(1)
     elif args['stratified']:
         method = 'stratified'
     elif args['systematic']:
@@ -335,7 +345,12 @@ def main():
 
     # Test if allocation is built-in; if not then it needs to be list of ints
     allocation = args['--allocation']
-    if args['--allocation'] not in _allocation_methods:
+    if allocation is None:
+        if method != 'random':
+            logger.error('Must specify allocation for designs other than\
+                simple random sampling')
+            sys.exit(1)
+    elif args['--allocation'] not in _allocation_methods:
         try:
             allocation = np.array([str2num(i) for i in
                                    allocation.replace(',', ' ').split(' ') if
@@ -356,7 +371,9 @@ def main():
 
     else:
         raise NotImplementedError("Sorry - haven't added allocation methods")
-    logger.debug('Allocation is {a}'.format(a=allocation))
+
+    if allocation is not None:
+        logger.debug('Allocation is {a}'.format(a=allocation))
 
     # Parse mask values
     mask = args['--mask']
